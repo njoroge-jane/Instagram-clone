@@ -24,4 +24,4 @@ def upload(request):
     return render(request, 'new_upload.html', {"form": form})
   
 def profile(request):
-    return render(request, 'users/profile.html')
+    return render(request, 'profile.html')
