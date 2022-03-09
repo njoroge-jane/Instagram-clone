@@ -7,7 +7,11 @@
 <h1>{{image.title}}</h1>
 <img style="height: 200px;width: 200px;" src="{{image.image.url}}" alt="">
 <p>{{image.caption}}</p>
-<p>{{image.pub_date}}</p>
+
+<i class="far fa-thumbs-up">{{count}}</i>
+
+<i class="far fa-thin fa-comment"></i>
+<p class="text-secondary">{{image.pub_date}}</p>
 </div>
 {%endfor%}
 </div>
