@@ -11,6 +11,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username  
+    @classmethod
+    def search_by_user(cls,search_term):
+        person = cls.objects.filter(user__icontains=search_term)
+        return person   
 
 class Image(models.Model):
     title = models.CharField(max_length =60)
