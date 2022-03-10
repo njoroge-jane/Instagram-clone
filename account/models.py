@@ -16,11 +16,20 @@ class Profile(models.Model):
         person = cls.objects.filter(user__icontains=search_term)
         return person   
 
+
+class Comments(models.Model):
+    comment = models.TextField()
+
+class Likes(models.Model):
+    likes=models.IntegerField()
+
+
 class Image(models.Model):
     title = models.CharField(max_length =60)
     caption = models.TextField() 
     pub_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to = 'images/')
-    # profile = models.ForeignKey(Profile,on_delete=models.CASCADE) 
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE) 
+    comments = models.ForeignKey(Comments)
 
            
