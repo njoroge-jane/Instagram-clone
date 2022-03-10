@@ -1,10 +1,10 @@
-{%extends '/base.html'%} 
+{%extends 'base.html'%} 
 {% block content %}
 <div class="container">
 
   <div class="row">
-    {% if user%}
-      <h2>Found {{ user|length }} results of {{message}}</h2>
+    {% if users%}
+      <h2>Found {{ users|length }} results of {{message}}</h2>
     {% else %}
       <h2> Found 0 results for{{message}}</h2>
     {% endif %}
@@ -13,10 +13,11 @@
 
   <div class="row">
 
-  {% if user %}
-    {% for person in user %}
+  {% if users %}
+    {% for person in users %}
       <div class="col-sm-6 col-md-3">
           <h1>{{person.username}}</h1>
+          <img src="{{person.profile_name.avatar.url}}" alt="">
       </div>
     {% endfor %}
   {% endif %}

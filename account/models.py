@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile_name')
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     bio = models.TextField()
 
@@ -20,28 +20,8 @@ class Profile(models.Model):
 
     @classmethod
     def search_by_user(cls,search_term):
-        person = cls.objects.filter(user__icontains=search_term)
+        person = User.objects.filter(username__icontains=search_term)
         return person   
-
-
-class Comments(models.Model):
-    comment = models.TextField()
-
-    def save_comment(self):
-        self.save()   
-
-    def delete_comment(self):
-        self.save()   
-
-class Likes(models.Model):
-    likes=models.IntegerField()
-
-    def save_likes(self):
-        self.save()
-
-    def delete_likes(self):
-        self.save()           
-
 
 
 class Image(models.Model):
@@ -50,11 +30,32 @@ class Image(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to = 'images/')
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE) 
-    comments = models.ForeignKey(Comments,on_delete=models.CASCADE,null=True)
-    likes = models.ForeignKey(Likes,on_delete=models.CASCADE,null=True)
+  
 
     def save_image(self):
         self.save()  
 
     def delete_image(self):
-        self.save()                     
+        self.save()  
+
+class Comments(models.Model):
+    comment=models.TextField()
+    image=models.ForeignKey(Image,on_delete=models.CASCADE)
+
+    def save_comment(self):
+        self.save()   
+
+    def delete_comment(self):
+        self.save()                             
+
+class Likes(models.Model):
+    likes=models.IntegerField()
+    image=models.ForeignKey(Image,on_delete=models.CASCADE)
+
+    def save_likes(self):
+        self.save()
+
+    def delete_likes(self):
+        self.save()           
+
+

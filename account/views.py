@@ -41,7 +41,7 @@ def profile(request):
 
   else:
         form = ProfileForm()        
-  return render(request, 'profile.html')
+  return render(request, 'profile.html',{"form":form})
 
 
 
@@ -52,8 +52,8 @@ def search_results(request):
         searched_users = Profile.search_by_user(search_term)
         message = f"{search_term}"
 
-        return render(request, 'all-news/search.html',{"message":message,"users": searched_users})
+        return render(request, 'search.html',{"message":message,"users": searched_users})
 
     else:
         message = "You haven't searched for any term"
-        return render(request, 'all-news/search.html',{"message":message})
+        return render(request, 'search.html',{"message":message})
