@@ -25,6 +25,7 @@ class Profile(models.Model):
 
 
 class Image(models.Model):
+    # user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='user')
     title = models.CharField(max_length =60)
     caption = models.TextField() 
     pub_date = models.DateTimeField(auto_now_add=True)
