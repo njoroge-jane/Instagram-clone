@@ -2,7 +2,7 @@ from pyexpat import model
 from re import U
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .forms import UploadImageForm
+from .forms import UploadImageForm,ProfileForm
 from .models import Image,Profile
 
 # Create your views here.
@@ -30,7 +30,19 @@ def upload(request):
     return render(request, 'new_upload.html', {"form": form})
   
 def profile(request):
-    return render(request, 'profile.html')
+  current_user = request.user
+  if request.method == 'POST':
+
+    form = ProfileForm(request.POST, request.FILES)
+    if form.is_valid():
+          profile = form.save(commit=False)
+          profile.user = current_user
+          profile.save()
+
+  else:
+        form = ProfileForm()        
+  return render(request, 'profile.html')
+
 
 
 def search_results(request):
